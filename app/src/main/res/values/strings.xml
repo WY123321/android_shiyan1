@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">计算器</string>
+    <string name="clear">清空</string>
+    <string name="delete">删除</string>
+    <string name="left">(</string>
+    <string name="right">)</string>
+    <string name="button0">0</string>
+    <string name="button1">1</string>
+    <string name="button2">2</string>
+    <string name="button3">3</string>
+    <string name="button4">4</string>
+    <string name="button5">5</string>
+    <string name="button6">6</string>
+    <string name="button7">7</string>
+    <string name="button8">8</string>
+    <string name="button9">9</string>
+    <string name="add">+</string>
+    <string name="jan">-</string>
+    <string name="chen">×</string>
+    <string name="chu">÷</string>
+    <string name="equal">=</string>
+    <string name="dian">·</string>
+    <string name="jinzhi2">二进制</string>
+    <string name="jinzhi10">十进制</string>
+
+
+
+
+
+</resources>
