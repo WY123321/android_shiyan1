@@ -22,24 +22,24 @@ public class InfixInToDuffix {
 
     //将中缀表达式转换为后缀表达式
     public String toSuffix(StringBuilder infix){
-        List<String> queue = new ArrayList<String>();             //定义队列  用于存储 数字  以及最后的  后缀表达式
-        List<Character> stack = new ArrayList<Character>();            //定义栈    用于存储  运算符  最后stack中会被 弹空
+        List<String> queue = new ArrayList<String>();             //队列  存储 数字  最后是  后缀表达式
+        List<Character> stack = new ArrayList<Character>();            //栈    运算符  最后会被 弹空
 
-        char[] charArr = infix.substring(0,infix.length()).trim().toCharArray();                //字符数组  用于拆分数字或符号
-        String standard = "×÷+-()";                    //判定标准 将表达式中会出现的运算符写出来
-        char ch = '*';            //在循环中用来保存 字符数组的当前循环变量的  这里仅仅是初始化一个值  没有意义
+        char[] charArr = infix.substring(0,infix.length()).trim().toCharArray();                //  用于拆分数字或符号
+        String standard = "×÷+-()";                    //判定标准
+        char ch = '*';
         int len = 0;             //用于记录字符长度
-        for (int i = 0; i < charArr.length; i++) {                //开始迭代
+        for (int i = 0; i < charArr.length; i++) {
 
-            ch = charArr[i];                                             //保存当前迭代变量
+            ch = charArr[i];
             if(Character.isDigit(ch)) {                               //如果当前变量为 数字
                 len++;
             }else if(ch == '.'){                                       //如果当前变量为  .  会出现在小数里面
                 len++;
             }else if(standard.indexOf(ch) != -1) {                              //如果是上面标准中的 任意一个符号
-                if(len > 0) {                                                  //长度也有
+                if(len > 0) {
                     queue.add(String.valueOf(Arrays.copyOfRange(charArr, i - len, i)));    //说明符号之前的可以截取下来做数字
-                    len = 0;                                                      //长度置空
+                    len = 0;
                 }
                 if(ch == '(') {                                                            //如果是左括号
                     stack.add(ch);                                                        //将左括号 放入栈中
@@ -51,7 +51,7 @@ public class InfixInToDuffix {
                     while (size >= 0 && ch == ')' && stack.get(size) != '(') {       //若当前ch为右括号，则 栈里元素从栈顶一直弹出，直到弹出到 左括号
                         queue.add(String.valueOf(stack.remove(size)));
 //注意此处条件：ch并未入栈，所以并未插入队列中；同样直到找到左括号的时候，循环结束了，所以左括号也不会放入队列中【也就是：后缀表达式中不会出现括号】
-                        size--;          //size-- 保证下标永远在栈最后一个元素【栈中概念：指针永远指在栈顶元素】
+                        size--;          //size-- 保证下标永远在栈最后一个元素
                         flag = true;                                                    //设置标志位为true  表明一直在取（）中的元素
                     }
                     if(ch==')'&&stack.get(size) == '('){
@@ -73,9 +73,9 @@ public class InfixInToDuffix {
                 if(len > 0) {                                                            //如果len>0  就截取数字
                     queue.add(String.valueOf(Arrays.copyOfRange(charArr, i - len+1, i+1)));
                 }
-                int size = stack.size() - 1;                                            //size表示栈内最后一个元素下标
+                int size = stack.size() - 1;
                 while (size >= 0) {
-                    //一直将栈内  符号全部出栈 并且加入队列中  【最终的后缀表达式是存放在队列中的，而栈内最后会被弹空】
+                    //一直将栈内  符号全部出栈 并且加入队列中
                     queue.add(String.valueOf(stack.remove(size)));
                     size--;
                 }
@@ -89,12 +89,12 @@ public class InfixInToDuffix {
 
     public String dealEquation(String equation){
 
-        String [] arr = equation.split(", ");                                    //根据, 拆分字符串
+        String [] arr = equation.split(", ");                                    //拆分字符串
         List<String> list = new ArrayList<String>();
-        //用于计算时  存储运算过程的集合【例如list中当前放置  100   20  5  /  则取出20/5 最终将结果4存入list   此时list中结果为  100  4 】
+        //存储运算过程的集合
 
         for (int i = 0; i < arr.length; i++) {
-            //此处就是上面说的运算过程， 因为list.remove的缘故，所以取出最后一个数个最后两个数  都是size-2
+            // 因为list.remove的缘故，所以取出最后一个数个最后两个数  都是size-2
             int size = list.size();
             switch (arr[i]) {
                 case "+": double a = Double.parseDouble(list.remove(size-2))+ Double.parseDouble(list.remove(size-2)); list.add(String.valueOf(a));
@@ -111,7 +111,7 @@ public class InfixInToDuffix {
         }
 
         return list.size()
-                == 1 ? list.get(0) : "运算失败" ;                    //最终list中仅有一个结果，否则就是算错了
+                == 1 ? list.get(0) : "运算失败" ;            //最终list不是1个结果就是算错了
     }
 
 }
